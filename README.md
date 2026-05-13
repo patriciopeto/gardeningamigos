@@ -211,8 +211,6 @@
     height: 100%;
     padding-bottom: 95px; /* sits just above grass strip */
   }
-  .hero-mascot-emoji { display: none; }
-
   .mascot-img {
     width: 220px;
     height: auto;
