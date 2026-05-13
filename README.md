@@ -240,7 +240,7 @@
   .floating-card {
     position: absolute;
     bottom: 4rem;
-    left: -1.5rem;
+    left: 1rem;
     background: white;
     border-radius: 16px;
     padding: 1rem 1.4rem;
@@ -248,9 +248,11 @@
     display: flex;
     align-items: center;
     gap: 0.9rem;
-    min-width: 220px;
+    min-width: 200px;
+    max-width: calc(100% - 2rem);
     animation: floatUp 3.5s ease-in-out infinite;
     border-left: 4px solid var(--yellow);
+    z-index: 3;
   }
   @keyframes floatUp {
     0%, 100% { transform: translateY(0); }
@@ -475,11 +477,9 @@
     );
   }
   .cta-section .section-title { color: white; margin-bottom: 1rem; }
-  .cta-section p { color: rgba(255,255,255,0.82); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2.2rem; line-height: 1.7; }
+  .cta-section > p { color: rgba(255,255,255,0.82); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2.2rem; line-height: 1.7; }
   .cta-phone-big {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
+    display: block;
     background: var(--yellow);
     color: var(--green-dark);
     font-family: 'Nunito', sans-serif;
@@ -491,47 +491,106 @@
     border: 3px solid var(--yellow-dark);
     box-shadow: 0 6px 24px rgba(0,0,0,0.2);
     transition: all 0.25s;
-    margin-bottom: 1.5rem;
-    display: block;
     max-width: 380px;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 2.5rem;
   }
   .cta-phone-big:hover { transform: scale(1.04); box-shadow: 0 10px 32px rgba(0,0,0,0.25); }
-  .cta-form {
-    display: flex;
-    gap: 0.75rem;
-    max-width: 480px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .cta-form input {
-    flex: 1;
-    min-width: 210px;
-    padding: 0.88rem 1.4rem;
-    border-radius: 50px;
-    border: none;
-    font-size: 0.95rem;
-    font-family: 'Lato', sans-serif;
-    outline: none;
-    background: rgba(255,255,255,0.18);
-    color: white;
-  }
-  .cta-form input::placeholder { color: rgba(255,255,255,0.65); }
-  .cta-form input:focus { background: rgba(255,255,255,0.28); }
-  .btn-white {
+
+  /* Quote Form */
+  .quote-form-wrap {
     background: white;
-    color: var(--green-mid);
-    padding: 0.88rem 1.8rem;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    max-width: 560px;
+    margin: 0 auto;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+    text-align: left;
+  }
+  .quote-form-wrap h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    margin-bottom: 0.3rem;
+    text-align: center;
+  }
+  .quote-form-wrap .form-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 1.8rem;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .form-row .form-group { margin-bottom: 0; }
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 2px solid #e5e5e5;
+    font-size: 0.93rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--text-dark);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--green-bright); background: white; }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group select { cursor: pointer; }
+  .btn-submit {
+    width: 100%;
+    background: var(--green-mid);
+    color: white;
+    padding: 0.95rem;
     border-radius: 50px;
-    border: none;
-    font-size: 0.95rem;
+    border: 2px solid var(--green-dark);
+    font-size: 1rem;
     font-weight: 700;
     font-family: 'Lato', sans-serif;
     cursor: pointer;
     transition: all 0.25s;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 16px rgba(42,140,63,0.3);
   }
-  .btn-white:hover { transform: scale(1.04); background: var(--green-dark); color: white; }
+  .btn-submit:hover { background: var(--green-dark); transform: translateY(-2px); }
+  .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .form-success .success-icon { font-size: 3.5rem; margin-bottom: 0.8rem; }
+  .form-success h4 { font-family: 'Nunito', sans-serif; font-size: 1.3rem; font-weight: 900; color: var(--green-dark); margin-bottom: 0.5rem; }
+  .form-success p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+  .form-note { font-size: 0.76rem; color: var(--text-light); text-align: center; margin-top: 0.8rem; }
+
+  @media (max-width: 540px) {
+    .form-row { grid-template-columns: 1fr; }
+    .quote-form-wrap { padding: 2rem 1.2rem; }
+    .cta-phone-big { font-size: 1.5rem; padding: 0.9rem 1.8rem; }
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -582,11 +641,13 @@
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; min-height: auto; }
     .hero-text { padding: 4rem 6% 3rem; }
-    .hero-visual { min-height: 400px; }
-    .floating-card { left: 1rem; bottom: 1.5rem; }
+    .hero-visual { min-height: 280px; }
+    .hero-mascot-emoji { font-size: 5rem; }
+    .hero-tagline-box { padding: 0.9rem 1.2rem; gap: 1rem; }
+    .floating-card { display: none; }
+    .phone-badge { display: none; }
     .why-section { grid-template-columns: 1fr; gap: 3rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
-    .phone-badge { top: 1rem; right: 1rem; }
   }
   @media (max-width: 640px) {
     .nav-links { display: none; }
@@ -602,6 +663,8 @@
     .why-visual { grid-template-columns: 1fr; }
     .why-box:first-child { grid-column: 1; }
     .cta-phone-big { font-size: 1.5rem; padding: 0.9rem 1.8rem; }
+    .hero-visual { min-height: 220px; }
+    .tagline-pill { font-size: 0.72rem; }
   }
 
   /* Scroll animations */
@@ -833,15 +896,62 @@
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="reveal"><h2 class="section-title">Ready for a Tidy Garden?</h2></div>
-  <div class="reveal reveal-delay-1"><p>Contact us today for a free, no-obligation quote. No job is too big or too small — we're happy to help!</p></div>
+  <div class="reveal reveal-delay-1"><p style="color:rgba(255,255,255,0.82);font-size:1.05rem;max-width:520px;margin:0 auto 2rem;line-height:1.7;">Call us directly or fill in the form below — we'll get back to you with a free, no-obligation quote fast!</p></div>
   <div class="reveal reveal-delay-2">
     <a href="tel:0438346390" class="cta-phone-big">📞 0438 346 390</a>
   </div>
-  <div class="cta-form reveal reveal-delay-2" style="margin-top:1.5rem;">
-    <input type="email" placeholder="Or drop your email..." aria-label="Email address"/>
-    <button class="btn-white" onclick="this.textContent='✓ We\'ll call you back!'">Request a Quote</button>
+
+  <div class="quote-form-wrap reveal reveal-delay-3" style="margin-top:2rem;">
+    <h3>🌿 Request a Free Quote</h3>
+    <p class="form-subtitle">We'll get back to you as soon as possible!</p>
+
+    <div id="quoteForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name *</label>
+          <input type="text" id="fname" name="name" placeholder="e.g. John" required />
+        </div>
+        <div class="form-group">
+          <label for="fphone">Phone Number *</label>
+          <input type="tel" id="fphone" name="phone" placeholder="e.g. 0412 345 678" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="femail">Email Address *</label>
+        <input type="email" id="femail" name="email" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group">
+        <label for="fservice">Service Needed *</label>
+        <select id="fservice" name="service" required>
+          <option value="" disabled selected>Select a service…</option>
+          <option>Hedge Trimming</option>
+          <option>Tree Branch Removal</option>
+          <option>Lawn Mowing</option>
+          <option>Weeding &amp; Planting</option>
+          <option>Green Waste Removal</option>
+          <option>Full Garden Clean-Up</option>
+          <option>Multiple Services</option>
+          <option>Not Sure — Need Advice</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="faddress">Property Address</label>
+        <input type="text" id="faddress" name="address" placeholder="e.g. 12 Garden St, Suburb" />
+      </div>
+      <div class="form-group">
+        <label for="fmessage">Additional Details</label>
+        <textarea id="fmessage" name="message" placeholder="Tell us a bit about the job — size of garden, any specific requirements, preferred timing, etc."></textarea>
+      </div>
+      <button class="btn-submit" id="submitBtn" onclick="submitQuoteForm(event)">✉️ Send My Quote Request</button>
+      <p class="form-note">Free quotes · No obligation · We'll respond within 24 hours</p>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">🎉</div>
+      <h4>Quote Request Sent!</h4>
+      <p>Thanks! We've received your request and will be in touch soon with your free quote. You can also call us directly on <strong>0438 346 390</strong>.</p>
+    </div>
   </div>
-  <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:1.2rem;">Free quotes · No franchise fees · Quality guaranteed</p>
 </section>
 
 <!-- FOOTER -->
@@ -888,6 +998,7 @@
 </footer>
 
 <script>
+  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -899,10 +1010,66 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(r => observer.observe(r));
 
+  // Nav shadow on scroll
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     nav.style.boxShadow = window.scrollY > 50 ? '0 4px 24px rgba(0,0,0,0.1)' : 'none';
   });
+
+  // Quote form submission via Formspree
+  async function submitQuoteForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const name    = document.getElementById('fname').value.trim();
+    const phone   = document.getElementById('fphone').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const service = document.getElementById('fservice').value;
+    const address = document.getElementById('faddress').value.trim();
+    const message = document.getElementById('fmessage').value.trim();
+
+    if (!name || !phone || !email || !service) {
+      alert('Please fill in all required fields (Name, Phone, Email, Service).');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const body = `
+New Quote Request — Gardening Amigos
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Service: ${service}
+Address: ${address || 'Not provided'}
+
+Message:
+${message || 'No additional details provided.'}
+    `.trim();
+
+    try {
+      const res = await fetch('https://formspree.io/f/xzzbenkg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, phone, service, address, message: body })
+      });
+
+      if (res.ok) {
+        document.getElementById('quoteForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (err) {
+      // Fallback: open mailto link
+      const subject = encodeURIComponent(`Quote Request from ${name} — ${service}`);
+      const mailBody = encodeURIComponent(body);
+      window.location.href = `mailto:jpatrickaustria02@gmail.com?subject=${subject}&body=${mailBody}`;
+      document.getElementById('quoteForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+  }
 </script>
 </body>
 </html>
