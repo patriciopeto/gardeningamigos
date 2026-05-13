@@ -210,6 +210,7 @@
     justify-content: flex-end;
     height: 100%;
     padding-bottom: 95px; /* sits just above grass strip */
+    padding-top: 1rem; /* gallery sits via absolute positioning */
   }
   .mascot-img {
     width: 220px;
@@ -225,6 +226,16 @@
     0%, 100% { transform: translateY(0) rotate(-2deg); }
     50% { transform: translateY(-12px) rotate(2deg); }
   }
+<!-- @keyframes bobble { -->
+    <!-- 0%, 100% {  -->
+        <!-- /* scaleX(-1) mirrors the image left-to-right */ -->
+        <!-- transform: translateX(-10px) translateY(0) rotate(-2deg) scaleX(-1);  -->
+    <!-- } -->
+    <!-- 50% {  -->
+        <!-- /* Keeps the horizontal flip active during the peak of the bobble */ -->
+        <!-- transform: translateX(-10px) translateY(-12px) rotate(2deg) scaleX(-1);  -->
+    <!-- } -->
+<!-- } -->
   .hero-tagline-box {
     background: white;
     border-radius: 16px;
@@ -276,6 +287,144 @@
   }
   .card-text p { font-size: 0.72rem; color: var(--text-light); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
   .card-text strong { font-size: 0.88rem; color: var(--text-dark); font-weight: 700; }
+
+  /* ── HERO GALLERY SLIDESHOW ── */
+  <!-- .hero-gallery { -->
+    <!-- position: absolute; -->
+    <!-- top: 50%; -->
+    <!-- left: 50%; -->
+    <!-- transform: translate(-50%, -62%); -->
+    <!-- width: calc(100% - 2.5rem); -->
+    <!-- max-width: 560px; -->
+    <!-- z-index: 3; -->
+  <!-- } -->
+  .hero-gallery {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -62%);
+    width: calc(100% - 2.5rem); /* Keeps it safe and fits small screens */
+    z-index: 3;
+}
+
+/* Desktop styles (Only activates on screens wider than 768px) */
+@media (min-width: 768px) {
+    .hero-gallery {
+        width: 70vw;       /* Forces it to expand on computers */
+        max-width: 800px;  /* Caps the size so it does not get too giant */
+    }
+}
+  .gallery-slideshow {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.55);
+    border: 3px solid rgba(255,255,255,0.3);
+    aspect-ratio: 4/3;
+    background: rgba(0,0,0,0.3);
+  }
+  .gallery-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-slide.active { opacity: 1; }
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Placeholder slides (shown when no real photos are loaded) */
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, rgba(42,140,63,0.6) 0%, rgba(15,58,26,0.8) 100%);
+  }
+  .gallery-placeholder .ph-icon { font-size: 2.4rem; }
+  .gallery-placeholder .ph-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  /* Caption overlay */
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+    padding: 1.2rem 1rem 0.8rem;
+    text-align: center;
+  }
+  .gallery-caption span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  /* Dots nav */
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+  }
+  .gallery-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: all 0.25s;
+  }
+  .gallery-dot.active {
+    background: var(--yellow);
+    transform: scale(1.3);
+  }
+  /* Prev/Next arrows */
+  .gallery-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.35);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 4;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .gallery-arrow:hover { background: rgba(0,0,0,0.6); }
+  .gallery-arrow.prev { left: 0.5rem; }
+  .gallery-arrow.next { right: 0.5rem; }
+  /* Upload hint label */
+  .gallery-upload-hint {
+    text-align: center;
+    margin-top: 0.55rem;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    letter-spacing: 0.03em;
+  }
 
   /* Phone badge */
   .phone-badge {
@@ -715,6 +864,7 @@
       <a href="#services" class="btn-secondary">Our Services</a>
     </div>
     <div class="hero-stats">
+	<img src="galogo.png" alt="Gardening Amigos Mascot" class="mascot-img" />
       <div>
         <div class="stat-num">No</div>
         <div class="stat-label">Franchise Fees</div>
@@ -732,24 +882,67 @@
   <div class="hero-visual">
     <div class="hero-visual-bg"></div>
     <div class="grass-strip"></div>
-    <div class="phone-badge">
-      <p>Call us free</p>
-      <strong>0438 346 390</strong>
-    </div>
+    
     <div class="hero-mascot-area">
-      <img src="galogo.png" alt="Gardening Amigos Mascot" class="mascot-img" />
+
+      <!-- ── PHOTO GALLERY SLIDESHOW ── -->
+      <div class="hero-gallery">
+        <div class="gallery-slideshow" id="heroGallery">
+
+          <!-- Slide 1 -->
+          <div class="gallery-slide active" data-caption="Hedge Trimming">
+            <img src="1.jpg" alt="Neatly trimmed corner hedge with clean lines" />
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="gallery-slide" data-caption="Hedge &amp; Lawn Work">
+            <img src="2.jpg" alt="Lush photinia hedge with vibrant red new growth beside manicured lawn" />
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="gallery-slide" data-caption="Shaped Hedges &amp; Garden Borders">
+            <img src="3.jpg" alt="Beautifully sculpted round-top hedges lining a garden path with flowers" />
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="gallery-slide" data-caption="Circular Hedge Shaping">
+            <img src="4.jpg" alt="Perfectly circular hedge ring around mature trees" />
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="gallery-slide" data-caption="Full Garden &amp; Lawn Care">
+            <img src="5.jpg" alt="Sweeping manicured garden with flat-top hedges, lawn and ornamental planting" />
+          </div>
+
+          <!-- Caption bar -->
+          <div class="gallery-caption">
+            <span id="galleryCaption">Our Work — Hedge Trimming</span>
+          </div>
+
+          <!-- Prev / Next arrows -->
+          <button class="gallery-arrow prev" onclick="galleryMove(-1)" aria-label="Previous slide">&#8249;</button>
+          <button class="gallery-arrow next" onclick="galleryMove(1)" aria-label="Next slide">&#8250;</button>
+        </div>
+
+        <!-- Dot indicators -->
+        <div class="gallery-dots" id="galleryDots"></div>
+        <p class="gallery-upload-hint">📷 Our Work — Swipe to explore</p>
+      </div>
+      <!-- ── END GALLERY ── -->
+
+     <!-- <img src="galogo.png" alt="Gardening Amigos Mascot" class="mascot-img" /> -->
       <div class="hero-tagline-box">
         <div class="tagline-pill"><span>🌱</span> Quality</div>
         <div class="tagline-pill"><span>💧</span> Value</div>
         <div class="tagline-pill"><span>⭐</span> Professional</div>
       </div>
     </div>
-    <div class="floating-card">
-      <div class="card-icon">✂️</div>
-      <div class="card-text">
-        <p>Speciality Service</p>
-        <strong>Hedge &amp; Tree Trimming</strong>
-      </div>
+    <!-- <div class="floating-card"> -->
+      <!-- <div class="card-icon">✂️</div> -->
+      <!-- <div class="card-text"> -->
+        <!-- <p>Speciality Service</p> -->
+        <!-- <strong>Hedge &amp; Tree Trimming</strong> -->
+      <!-- </div> -->
     </div>
   </div>
 </section>
@@ -1007,6 +1200,43 @@
 </footer>
 
 <script>
+  // ── HERO GALLERY ──
+  (function() {
+    const slides = document.querySelectorAll('#heroGallery .gallery-slide');
+    const dotsContainer = document.getElementById('galleryDots');
+    const captionEl = document.getElementById('galleryCaption');
+    let current = 0;
+    let timer;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(d);
+    });
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsContainer.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsContainer.children[current].classList.add('active');
+      const cap = slides[current].dataset.caption || 'Our Work';
+      captionEl.textContent = 'Our Work — ' + cap;
+      resetTimer();
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), 4000);
+    }
+
+    window.galleryMove = (dir) => goTo(current + dir);
+    resetTimer();
+  })();
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
